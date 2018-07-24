@@ -1,91 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8"/>
     <title>Titre</title>
     <script src="jquery-3.3.1.min.js"></script>
+    <script src="jquery-request.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="stye.css">
 </head>
 <body>
 
-<table id="usertable" border="1">
-    <tr>
 
-        <th>Nom</th>
-        <th>Prenom</th>
-    </tr>
-</table>
-<br>
+        <table class="table table-dark" id="usertable" border="1">
+            <tr>
+                <th scope="col">lastname</th>
 
-<form id="form">
-    id<input type="text" name="id" id="id"/><br>
-    Lastname<input type="text" name="last_name" id="last"/><br>
-    Firstname<input type="text" name="first_name" id="first"/><br>
-    Date birth<input type="datetime-local" name="date" id="date"/><br>
-    <button type="submit" id="submit">Ajouter</button>
-</form>
+                <th scope="col">firstname</th>
+            </tr>
+        </table>
 
+
+        <form id="form" class="form-row">
+            <div class="row">
+                id<input type="text" name="id" value="id" class="form-control"/>
+            </div>
+            <div class="row">
+                Lastname<input type="text" name="lastname" value="lastname" class="form-control"/>
+            </div>
+            <div class="row">
+                Firstname<input type="text" name="firstname" value="firstname" class="form-control"/>
+            </div>
+
+            <div class="row">
+                Date birth<input type="datetime-local" name="dateNaissance" value="2018-07-23 08:07:34"
+                                 class="form-control"/>
+            </div>
+            <br>
+            <div class="row">
+                <button class="btn btn-primary" type="submit" id="submit">Button</button>
+            </div>
+        </form>
 
 <script>
+    //charge le tableau d'users
+    laodUsers();
 
-    /*$.ajax('http://127.0.0.1:8000/userAll', {
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-
-            $.each((data), function (i, obj) {
-
-                userFirstname = obj.firstname;
-                userLastname = obj.lastname;
-                $('#usertable').append('<tr><td>' + userLastname + '</td>' + '<td>' + userFirstname + '</td></tr>');
-
-            });
-        },
-        error: function (xhr, sts, err) {
-            alert('Erreur !!');
-        }
-    });*/
-
-/*
-   $.submit('#submit').on('click', function () {
-        alert('fff');
-        $.ajax('http://127.0.0.1:8000/user', {
-            type: 'POST',
-            dataType: 'json',
-            data: $('#form').serialize(),
-
-
-            success: function (result) {
-                alert(result);
-            },
-            error: function (xhr, resp, text) {
-
-                console.log(xhr, resp, text);
-            }
-
-        })
-    });   */
-
-        $("#submit").click(function{
-
-            $.post(
-                'http://127.0.0.1:8000/user', // Un script PHP que l'on va créer juste après
-                {
-                    id : $("#id").val(),  // Nous récupérons la valeur de nos inputs que l'on fait passer à connexion.php
-                    lastname : $("#last").val(),  // Nous récupérons la valeur de nos inputs que l'on fait passer à connexion.php
-                    firstname : $("#first").val(),
-                    date : $("#date").val(),
-                },
-
-                function(data){ // Cette fonction ne fait rien encore, nous la mettrons à jour plus tard
-                },
-
-                'text' // Nous souhaitons recevoir "Success" ou "Failed", donc on indique text !
-            );
-
-        });
-
+    //actualise le tableau users avec un new user
+    $("#form").on('submit', function (event) {
+        event.preventDefault();
+        createUser($(this));
+    });
 
 
 </script>
+
 </body>
 </html>

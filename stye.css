@@ -1,0 +1,21 @@
+#form{
+     display: inline-grid;
+    margin-left: 2%;
+ }
+
+#usertable{
+    width: auto;
+}
+
+.section_table_form{
+
+    display: flex;
+}
+
+#formulaire{
+
+}
+
+#tableau{
+    width: 35%;
+}
