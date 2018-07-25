@@ -19,3 +19,10 @@
 #tableau{
     width: 35%;
 }
+
+/*icon*/
+
+.delete{
+    background-image: url("image/delete.png");
+    background-repeat: no-repeat;
+}
