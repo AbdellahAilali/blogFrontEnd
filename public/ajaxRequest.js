@@ -79,7 +79,38 @@ function deleteUser(linkDelete) {
     });
 }
 
-function modifyUser() {
+function modifyUser(td) {
 
+    var id = td.closest("tr").find("td input").val();
+    var lastName = td.closest("tr").find("td.lastName").text();
+    var firstName = td.closest("tr").find("td.firstName").text();
+    var date_naissance = td.closest("tr").find("td.dateNaissance").text();
+
+    $('#form').find('input[name=id]').val(id);
+    $('#form').find('input[name=lastname]').val(lastName);
+    $('#form').find('input[name=firstname]').val(firstName);
+    $('#form').find('input[name=dateNaissance]').val(date_naissance);
+
+    $('#modify').on('click', function () {
+        var result = {};
+
+        $.each(td.serializeArray(), function () {
+            result[this.name] = this.value;
+        });
+        alert('esac');
+
+        $.ajax('http://127.0.0.1:8000/user/modify/'+ id, {
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(result),
+
+            success: function () {
+                laodUsers();
+            },
+            error: function () {
+                alert('error modify');
+            }
+        });
+    });
 }
 

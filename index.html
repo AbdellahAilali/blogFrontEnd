@@ -39,59 +39,25 @@
 
 <script>
 
-    //load d'users
+    //charge le tableau d'users
     laodUsers();
 
-    //create user
-    $("#form").on('submit', function (event) {
+    //actualise le tableau users avec un new user
+     $("#form").on('submit', function (event) {
+         event.preventDefault();
+         createUser($(this));
+     });
+
+     $(document).on("click", '.delete', function (event) {
+         event.preventDefault();
+
+         deleteUser($(this));
+     });
+
+    $(document).on("click", '.modify', function (event) {
         event.preventDefault();
-        createUser($(this));
-    });
 
-    //delete user
-    $(document).on("click", '.delete', function (event) {
-        event.preventDefault();
-        deleteUser($(this));
-    });
-
-    //modify user
-    $(document).on("click", '.modify', function () {
-        event.preventDefault();
-        //modifyUser()
-
-        //enregistre mes données user dans des var
-        var id = $(this).closest("tr").find("td input").val();
-        var lastName = $(this).closest("tr").find("td.lastName").text();
-        var firstName = $(this).closest("tr").find("td.firstName").text();
-        var date_naissance = $(this).closest("tr").find("td.dateNaissance").text();
-
-        //j'affecte mes valeur recuperer dans mon formulaires
-        $('#form').find('input[name=id]').val(id);
-        $('#form').find('input[name=lastname]').val(lastName);
-        $('#form').find('input[name=firstname]').val(firstName);
-        $('#form').find('input[name=dateNaissance]').val(date_naissance);
-
-
-        $("#modify").on('click', function (event) {
-            //je parcour mon formulaire et remplit mon tableau result
-            var result = {};
-            $.each($("#form").serializeArray(), function () {
-                result[this.name] = this.value;
-            });
-            //j'envoie mono tableau a mon api
-            $.ajax('http://127.0.0.1:8000/user/modify/' + id, {
-                type: 'POST',
-                dataType: 'json',
-                data: JSON.stringify(result),
-
-                success: function () {
-                    laodUsers();
-                },
-                error: function () {
-                    alert('error modify');
-                }
-            });
-        });
+        modifyUser($(this));
     });
 
 
