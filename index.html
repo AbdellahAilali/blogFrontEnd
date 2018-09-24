@@ -16,7 +16,7 @@
 
 <form id="form" class="form-row">
 
-    <input type="hidden" name="id" value="id" class="form-control"/>
+    <input type="hidden" name="id" class="form-control"/>
 
     <div class="row">
         Lastname<input type="text" name="lastname" value="lastname" class="form-control"/>
@@ -26,13 +26,12 @@
     </div>
 
     <div class="row">
-        Date birth<input type="datetime-local" name="dateNaissance" value="2018-07-23 08:07:34"
-                         class="form-control"/>
+        Birthday<input type="date" name="birthday" value="birthday" class="form-control"/>
     </div>
     <br>
     <div class="row">
-        <button class="btn btn-primary" type="submit" id="submit">Send</button>
-        <button class="btn btn-danger" type="submit" id="modify">Modify</button>
+        <button class="btn btn-primary add" type="submit" id="add">Send</button>
+        <button class="btn btn-danger" type="submit" id="button_modify">Modify</button>
     </div>
 
 </form>
@@ -50,16 +49,18 @@
 
      $(document).on("click", '.delete', function (event) {
          event.preventDefault();
-
          deleteUser($(this));
      });
 
     $(document).on("click", '.modify', function (event) {
         event.preventDefault();
-
-        modifyUser($(this));
+        fillForm($(this));
     });
 
+    $(document).on("click", '#button_modify', function (event) {
+        event.preventDefault();
+        modifyUser($(this).closest('form'));
+    });
 
 </script>
 </body>
